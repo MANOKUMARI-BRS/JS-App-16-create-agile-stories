@@ -7,6 +7,7 @@ let storyList = [];
 let chathams_blue = "#1A4B84";
 
 // Elements
+
 const tittle = document.getElementById("tittle");
 const description = document.getElementById("description");
 const assignedto = document.getElementById("assignedto");
@@ -167,6 +168,9 @@ const formValidate = (e) => {
   assignedto.value = "";
   priority.value = "";
   tittleLength ="";
+  description.value = "";
+  assignedto.value = "";
+  priority.value = "";
   descrptionLength.innerHTML = "";
   updateList(newStory, "");
 };
@@ -179,7 +183,6 @@ function textCounter() {
   if (count == "") {
     tittleLength.innerHTML = `${maxLength} charecters left`;
   }
-
   if (count > maxLength) {
     tittle.value = tittle.value.substring(0, maxLength);
     count--;
@@ -201,12 +204,22 @@ function textCounter() {
 
   if (count > maxLength) {
     descrptionLength = tittle.value.substring(0, maxLength);
+  let count = description.value.length;
+  descrptionLength.innerHTML = `${maxLength - count} charecters left`;
+  descrptionLength.classList.remove("text-danger");
+  if (count == "") {
+    descrptionLength.innerHTML = `${maxLength} charecters left`;        
+  }
+
+  if (count > maxLength) {
+    description.value = description.value.substring(0, maxLength);
     count--;
   }
   if (count > warnLength) {
     descrptionLength.classList.add("text-danger");
     descrptionLength.innerHTML = `${maxLength - count} charecters left`;
   }
+}
 }
 
 storySubmitBtn.addEventListener("click", formValidate);
@@ -216,4 +229,5 @@ function setTheme(theme) {
   document.documentElement.style.setProperty("--primary-color", theme);
   localStorage.setItem("movie-theme", theme);
 }
+setTheme(localStorage.getItem("movie-theme") || chathams_blue);
 setTheme(localStorage.getItem("movie-theme") || chathams_blue);
